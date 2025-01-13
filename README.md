@@ -18,6 +18,14 @@ Here are some features I've managed to complete before it was discontinued.
 
 ... and probably some other stuff I forgot.
 
+# Media
+
+Image Gallery
+https://imgur.com/a/iSXYTMD
+
+Map Viewer Video
+https://youtu.be/EhISmUcTqwk
+
 # Disclaimer 
 This project is NOT FINISHED. This is not plug and play, it's a very much work in progress that will require a lot of work to finalize, but the basic skeleton is all there ready to be fleshed out. Anyone ambitious can make short work of it with the right knowledge.
 

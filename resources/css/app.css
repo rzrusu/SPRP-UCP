@@ -1,0 +1,227 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.uses_gangtags_background {
+    background-image: url('/public/assets/backgrounds/gangtags.png');
+    background-color: #1E1F22;
+    background-repeat: repeat-x;
+    background-size: auto;
+}
+
+.tippy-box {
+    padding: 8px;
+    background-color: #303136;
+    color: white;
+    border-radius: 0.5rem;
+    border-color: #5E5E5E;
+    font-size: 14px;
+}
+
+.tippy-arrow {
+    color: #303136;
+    background-color: #303136;
+}
+
+
+html {
+    background-color: #1E1F22;
+}
+
+@responsive {
+
+    .stats_card_effect {
+        background: linear-gradient(270deg, rgba(88, 109, 192, 0.00) 0%, rgba(88, 109, 192, 0.14) 100%), #1E1F22;
+    }
+
+    .uses_dashboard_background {
+        background-image: url('/public/assets/backgrounds/dashboard-empty.png');
+        background-repeat: no-repeat;
+        background-size: contain;
+    }
+
+    .uses_character_bg {
+        background: radial-gradient(55.27% 50% at 50% 50%, #242529 23.45%, #292A2E 100%);
+    }
+
+    .uses_missing_character_bg {
+        background: url('/public/assets/missing.png') -83.584px 170px / 166.337% 100% no-repeat, radial-gradient(55.27% 50% at 50% 50%, #242529 23.45%, #292A2E 100%);
+    }
+
+    .character_slot_effect {
+        background: radial-gradient(55.27% 50% at 50% 50%, #242529 23.45%, #303136 100%);
+    }
+
+    .character_slot_effect_missing {
+        background: url('/public/assets/missing.png') -83.584px 170px / 166.337% 100% no-repeat, radial-gradient(55.27% 50% at 50% 50%, #242529 23.45%, #303136 100%);
+    }
+}
+
+
+.uses_discs > ul {
+    list-style-type: disc;
+    list-style-position: inside;
+}
+
+.uses_discs > ul > li > ul {
+    list-style-type: disc;
+    list-style-position: inside;
+}
+
+.uses_numbers > ol {
+    list-style-type: decimal;
+    list-style-position: inside;
+}
+
+.render_markdown > ul {
+    list-style-type: disc;
+    list-style-position: inside;
+}
+
+.render_markdown > ol {
+    list-style-type: decimal;
+    list-style-position: inside;
+}
+
+.render_markdown > h1 {
+    font-size: 2.25rem;
+    line-height: 2.5rem;
+    font-weight: 700;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+    color: white;
+}
+
+.render_markdown > h2 {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+    font-weight: 700;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+    color: white;
+}
+
+.render_markdown > h3 {
+    font-size: 1.5rem;
+    line-height: 2rem;
+    font-weight: 700;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+    color: white;
+}
+
+.render_markdown > h4 {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+    font-weight: 700;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+    color: white;
+}
+
+.render_markdown > h5 {
+    font-size: 1rem;
+    line-height: 1.5rem;
+    font-weight: 700;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+    color: white;
+}
+
+.render_markdown > h6 {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    font-weight: 700;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+    color: white;
+}
+
+.render_markdown > p {
+    font-size: 1rem;
+    line-height: 1.5rem;
+}
+
+.render_markdown > blockquote {
+    font-size: 1rem;
+    line-height: 1.5rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+    background: #242529;
+}
+
+.render_markdown > ul {
+    font-size: 1rem;
+    line-height: 1.5rem;
+}
+
+.render_markdown > ol {
+    font-size: 1rem;
+    line-height: 1.5rem;
+}
+
+.render_markdown > table {
+    font-size: 1rem;
+    line-height: 1.5rem;
+}
+
+.render_markdown > pre {
+    font-size: 1rem;
+    line-height: 1.5rem;
+}
+
+.render_markdown > table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    border: #676A75 1px solid;
+}
+
+.render_markdown > table th {
+    padding: 0.5rem;
+    border: #676A75 1px solid;
+}
+
+.render_markdown > table td {
+    padding: 0.5rem;
+    border: #676A75 1px solid;
+}
+
+.render_markdown > hr {
+    border-top: 1px solid #676A75;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.render_markdown > blockquote {
+    border-left: 4px solid #676A75;
+    padding-left: 1rem;
+}
+
+.render_markdown > a {
+    color: #007BC8;
+    text-decoration: underline;
+}
+
+.render_markdown > p > a {
+    color: #007BC8;
+    text-decoration: underline;
+}
+
+.render_markdown > pre {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    background-color: #18191B;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+}
+
+.render_markdown > p > code {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    background-color: #18191B;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+}
+
+

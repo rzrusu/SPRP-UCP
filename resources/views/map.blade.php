@@ -58,7 +58,6 @@
         }
     </style>
 
-    <!-- TODO: Set up faction colors -->
 </head>
 <body>
 
@@ -238,9 +237,16 @@
         ]
     };
 
+    @php
+        // get faction color safely
+        $factionIndex = $zone->gz_faction - 1;
+        $hexValue = $zone->gz_faction > 0 ? $factions[$factionIndex]->faction_hex : 0x808080;
+        $hexString = $zone->gz_faction > 0 
+            ? str_pad(dechex($hexValue & 0xFFFFFFFF), 8, '0', STR_PAD_LEFT)
+            : '808080'; 
+    @endphp
 
-    // This will absolutely break if faction ids are moved.
-    TurfColor[{{ $zone->gz_sqlid }}] = "#{{str_pad(dechex($factions[$zone->gz_faction - 1]->faction_hex & 0xFFFFFFFF), 8, '0', STR_PAD_LEFT)}}";
+    TurfColor[{{ $zone->gz_sqlid }}] = "#{{ $hexString }}";
 
     console.log(TurfColor)
 
@@ -258,7 +264,14 @@
     google.maps.event.addListener(Turfs[{{ $zone->gz_sqlid }}], 'click', function (event) {
         var pos = SanMap.getPosFromLatLng(event.latLng);
         infoWindow.setPosition(SanMap.getLatLngFromPos(pos.x, pos.y));
-        infoWindow.setContent('<b>{{$factions[$zone->gz_faction - 1]->faction_name.' Turf'}}</b>');
+        @php
+        // get faction name
+        $factionText = 'Unowned Turf';
+        if ($zone->gz_faction > 0 && isset($factions[$zone->gz_faction - 1])) {
+            $factionText = $factions[$zone->gz_faction - 1]->faction_name . ' Turf';
+        }
+        @endphp
+        infoWindow.setContent('<b>{{ $factionText }}</b>');
         infoWindow.open(map);
     });
 

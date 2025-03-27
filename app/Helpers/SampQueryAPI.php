@@ -41,10 +41,9 @@ class SampQueryAPI
         $this->aServer[1] = $iPort;
 
         /* Start the connection. */
-        $this->rSocket = fsockopen('udp://'.$this->aServer[0], $this->aServer[1], $iError, $sError, 2);
+        $this->rSocket = fsockopen('udp://' . $this->aServer[0], $this->aServer[1], $iError, $sError, 2);
 
-        if(!$this->rSocket)
-        {
+        if (!$this->rSocket) {
             $this->aServer[4] = false;
             return;
         }
@@ -62,10 +61,8 @@ class SampQueryAPI
 
         fwrite($this->rSocket, $sPacket);
 
-        if(fread($this->rSocket, 10))
-        {
-            if(fread($this->rSocket, 5) == 'p4150')
-            {
+        if (fread($this->rSocket, 10)) {
+            if (fread($this->rSocket, 5) == 'p4150') {
                 $this->aServer[4] = true;
                 return;
             }
@@ -129,7 +126,8 @@ class SampQueryAPI
         $aDetails['maxplayers'] = (integer) $this->toInteger(fread($this->rSocket, 2));
 
         $iStrlen = ord(fread($this->rSocket, 4));
-        if(!$iStrlen) return -1;
+        if (!$iStrlen)
+            return -1;
 
         $aDetails['hostname'] = (string) fread($this->rSocket, $iStrlen);
 
@@ -137,7 +135,14 @@ class SampQueryAPI
         $aDetails['gamemode'] = (string) fread($this->rSocket, $iStrlen);
 
         $iStrlen = ord(fread($this->rSocket, 4));
-        $aDetails['mapname'] = (string) fread($this->rSocket, $iStrlen);
+        if ($iStrlen === 0) {
+            $aDetails['mapname'] = 'San Andreas';
+        } else {
+            $aDetails['mapname'] = (string) fread($this->rSocket, $iStrlen);
+            if (empty($aDetails['mapname'])) {
+                $aDetails['mapname'] = 'San Andreas';  // Fallback incase mapname is empty
+            }
+        }
 
         return $aDetails;
     }
@@ -179,10 +184,8 @@ class SampQueryAPI
         $iPlayerCount = ord(fread($this->rSocket, 2));
         $aDetails = array();
 
-        if($iPlayerCount > 0)
-        {
-            for($iIndex = 0; $iIndex < $iPlayerCount; ++$iIndex)
-            {
+        if ($iPlayerCount > 0) {
+            for ($iIndex = 0; $iIndex < $iPlayerCount; ++$iIndex) {
                 $iStrlen = ord(fread($this->rSocket, 1));
                 $aDetails[] = array
                 (
@@ -236,8 +239,7 @@ class SampQueryAPI
         $iPlayerCount = ord(fread($this->rSocket, 2));
         $aDetails = array();
 
-        for($iIndex = 0; $iIndex < $iPlayerCount; ++$iIndex)
-        {
+        for ($iIndex = 0; $iIndex < $iPlayerCount; ++$iIndex) {
             $aPlayer['playerid'] = (integer) ord(fread($this->rSocket, 1));
 
             $iStrlen = ord(fread($this->rSocket, 1));
@@ -283,8 +285,7 @@ class SampQueryAPI
         $iRuleCount = ord(fread($this->rSocket, 2));
         $aReturn = array();
 
-        for($iIndex = 0; $iIndex < $iRuleCount; ++$iIndex)
-        {
+        for ($iIndex = 0; $iIndex < $iRuleCount; ++$iIndex) {
             $iStrlen = ord(fread($this->rSocket, 1));
             $sRulename = (string) fread($this->rSocket, $iStrlen);
 
@@ -301,31 +302,26 @@ class SampQueryAPI
      */
     private function toInteger($sData)
     {
-        if($sData === "")
-        {
+        if ($sData === "") {
             return null;
         }
 
         $iInteger = 0;
         $iInteger += (ord($sData[0]));
 
-        if(isset($sData[1]))
-        {
+        if (isset($sData[1])) {
             $iInteger += (ord($sData[1]) << 8);
         }
 
-        if(isset($sData[2]))
-        {
+        if (isset($sData[2])) {
             $iInteger += (ord($sData[2]) << 16);
         }
 
-        if(isset($sData[3]))
-        {
+        if (isset($sData[3])) {
             $iInteger += (ord($sData[3]) << 24);
         }
 
-        if($iInteger >= 4294967294)
-        {
+        if ($iInteger >= 4294967294) {
             $iInteger -= 4294967296;
         }
 
@@ -354,7 +350,7 @@ class SampQueryAPI
     // Results are stored in cache for 30 seconds to reduce load
     public static function getServerPlayerCount(bool $forceLiveCheck = false): int
     {
-        return Cache::remember('current_player_count', 30, function() {
+        return Cache::remember('current_player_count', 30, function () {
             $server = new SampQueryAPI(config('app.server_ip'), config('app.server_ip_port'));
             if ($server->isOnline()) {
                 return $server->getInfo()['players'];
